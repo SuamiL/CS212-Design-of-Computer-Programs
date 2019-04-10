@@ -11,7 +11,7 @@ def faster_solve(formula):
     for digits in itertools.permutations((1,2,3,4,5,6,7,8,9,0), len(letters)):
         try:
             if f(*digits) is True:
-                table = string.maketrans(letters, ''.join(map(str, digits)))
+                table = str.maketrans(letters, ''.join(map(str, digits)))
                 return formula.translate(table)
         except ArithmeticError:
             pass
@@ -21,7 +21,7 @@ def compile_formula(formula, verbose=False):
     """Compile formula into a function. Also return letters found, as a str,
     in same order as parms of function. For example, 'YOU == ME**2' returns
     (lambda Y, M, E, U, O: (U+10*O+100*Y) == (E+10*M)**2), 'YMEUO' """
-    letters = ''.join(set(re.findall('[A-Z', formula)))
+    letters = ''.join(set(re.findall('[A-Z]', formula)))
     parms = ', '.join(letters)
     tokens = map(compile_word, re.split('([A-Z]+)', formula))
     body = ''.join(tokens)
@@ -44,3 +44,4 @@ def compile_word(word):
 # print(list(enumerate(seasons)))
 # print(list(enumerate(seasons, start=1)))
 # print(list(enumerate(seasons[::-1], start=1)))
+
