@@ -1,6 +1,7 @@
 import itertools
 import string
 import re
+import time
 
 
 def solve(formula):
@@ -36,8 +37,21 @@ def compile_word(word):
     else:
         return word
 
+def timedcall(fn, *args):
+    "Call function with args; return the time in seconds and result"
+    t0 = time.clock()
+    result = fn(*args)
+    t1 = time.clock()
+    return t1-t0, result
 
-seasons = ['Spring', 'Summer', 'Fall', 'Winter']
-print(list(enumerate(seasons)))
-print(list(enumerate(seasons, start=1)))
-print(list(enumerate(seasons[::-1], start=1)))
+def timedcalls(n, fn, *args):
+    "Call function n times with args; return the min, avg, and max time"
+    times = [timedcall(fn, *args)[0] for _ in range(n)]
+    return min(times), avg(times), max(times)
+
+
+# seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+# print(list(enumerate(seasons)))
+# print(list(enumerate(seasons, start=1)))
+# print(list(enumerate(seasons[::-1], start=1)))
+help(timedcall)
